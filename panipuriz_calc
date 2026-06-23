@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PANIPURIZ Business Calculator</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:#f8fafc;
+    color:#1f2937;
+    padding:30px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+.header{
+    margin-bottom:25px;
+}
+
+.header h1{
+    color:#0F766E;
+    font-size:36px;
+}
+
+.header p{
+    color:#64748b;
+    margin-top:8px;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    margin-bottom:30px;
+}
+
+.card{
+    background:white;
+    border-radius:20px;
+    padding:24px;
+    box-shadow:0 10px 30px rgba(15,118,110,0.08);
+    border-top:5px solid #14B8A6;
+}
+
+.card-title{
+    color:#64748b;
+    font-size:14px;
+    margin-bottom:10px;
+}
+
+.card-value{
+    font-size:30px;
+    font-weight:700;
+    color:#0F766E;
+}
+
+.section{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    margin-bottom:25px;
+    box-shadow:0 10px 30px rgba(15,118,110,0.08);
+}
+
+.section h2{
+    margin-bottom:20px;
+    color:#0F766E;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:linear-gradient(
+        135deg,
+        #0F766E,
+        #14B8A6
+    );
+    color:white;
+    text-align:left;
+    padding:14px;
+}
+
+td{
+    border-bottom:1px solid #ecfeff;
+    padding:14px;
+}
+
+input{
+    width:100%;
+    padding:11px 12px;
+    border:1px solid #cbd5e1;
+    border-radius:12px;
+    font-size:14px;
+    background:white;
+    transition:0.2s;
+}
+
+input:focus{
+    outline:none;
+    border-color:#14B8A6;
+    box-shadow:0 0 0 4px rgba(20,184,166,0.15);
+}
+
+.result-row{
+    background:#f0fdfa;
+    font-weight:600;
+}
+
+.comment{
+    color:#64748b;
+    font-size:13px;
+}
+
+.positive{
+    color:#16a34a;
+}
+
+.negative{
+    color:#dc2626;
+}
+
+.footer{
+    text-align:center;
+    color:#94a3b8;
+    margin-top:25px;
+    font-size:13px;
+}
+
+@media(max-width:768px){
+
+    body{
+        padding:15px;
+    }
+
+    table{
+        display:block;
+        overflow-x:auto;
+    }
+
+}
+
+.brand-name{
+
+    color:#F97316;
+
+    font-weight:700;
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>
+            🥣
+            <span class="brand-name">PANIPURIz</span>
+            Business Calculator
+        </h1>
+        <p>Plan pricing, profitability and growth for your PANIPURIz business.</p>
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="card-title">Listing Price</div>
+            <div class="card-value" id="cardListingPrice">₹0</div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Profit / Bucket</div>
+            <div class="card-value" id="cardProfit">₹0</div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Profit / Month</div>
+            <div class="card-value" id="cardProfitMonth">₹0</div>
+        </div>
+
+    </div>
+
+    <div class="section">
+
+        <h2>Cost Calculator</h2>
+
+        <table>
+
+            <tr>
+                <th style="width:35%">Item</th>
+                <th style="width:25%">Value</th>
+                <th style="width:40%">Comments</th>
+            </tr>
+
+            <tr>
+                <td>Bucket Size (Puris)</td>
+                <td><input type="number" id="bucketSize" value="50"></td>
+                <td class="comment">Total puris in one bucket/order</td>
+            </tr>
+
+            <tr>
+                <td>Cost for 7 Puris</td>
+                <td><input type="number" id="pricePer7" value="20"></td>
+                <td class="comment">Raw material cost</td>
+            </tr>
+
+            <tr>
+                <td>Packaging</td>
+                <td><input type="number" id="packaging" value="10"></td>
+                <td class="comment">Container, spoon, tissue, bag</td>
+            </tr>
+
+            <tr>
+                <td>Tax</td>
+                <td><input type="number" id="tax" value="20"></td>
+                <td class="comment">Applicable tax</td>
+            </tr>
+
+            <tr>
+                <td>Profit Margin (%)</td>
+                <td><input type="number" id="profitMargin" value="130"></td>
+                <td class="comment">Desired profit percentage</td>
+            </tr>
+
+            <tr class="result-row">
+                <td>Actual Price</td>
+                <td id="actualPrice">₹0</td>
+                <td class="comment">Cost of puris only</td>
+            </tr>
+
+            <tr class="result-row">
+                <td>Total Cost</td>
+                <td id="totalCost">₹0</td>
+                <td class="comment">Actual Price + Packaging + Tax</td>
+            </tr>
+
+            <tr class="result-row">
+                <td>Listing Price</td>
+                <td id="listingPrice">₹0</td>
+                <td class="comment">Auto calculated from margin</td>
+            </tr>
+
+            <tr class="result-row">
+                <td>Profit</td>
+                <td id="profit">₹0</td>
+                <td class="comment">Listing Price - Total Cost</td>
+            </tr>
+
+            <tr class="result-row">
+                <td>Profit %</td>
+                <td id="profitPercent">0%</td>
+                <td class="comment">Profit relative to Total Cost</td>
+            </tr>
+
+            <tr class="result-row">
+                <td>Per Puri Cost</td>
+                <td id="perPuriCost">₹0</td>
+                <td class="comment">Total Cost / Bucket Size</td>
+            </tr>
+
+            <tr class="result-row">
+                <td>Per Puri Selling Price</td>
+                <td id="perPuriPrice">₹0</td>
+                <td class="comment">Listing Price / Bucket Size</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+    <div class="section">
+
+        <h2>Business Projection</h2>
+
+        <table>
+
+            <tr>
+                <th style="width:50%">Metric</th>
+                <th style="width:50%">Value</th>
+            </tr>
+
+            <tr>
+                <td>Orders Per Day</td>
+                <td><input type="number" id="ordersPerDay" value="10"></td>
+            </tr>
+
+            <tr class="result-row">
+                <td>Profit / Day</td>
+                <td id="profitPerDay">₹0</td>
+            </tr>
+
+            <tr class="result-row">
+                <td>Profit / Month</td>
+                <td id="profitPerMonth">₹0</td>
+            </tr>
+
+            <tr class="result-row">
+                <td>Revenue / Day</td>
+                <td id="revenuePerDay">₹0</td>
+            </tr>
+
+            <tr class="result-row">
+                <td>Revenue / Month</td>
+                <td id="revenuePerMonth">₹0</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+    <div class="footer">
+        PANIPURIZ Business Calculator • Built for profitability planning
+    </div>
+
+</div>
+
+<script>
+
+function money(value){
+    return "₹" + value.toFixed(2);
+}
+
+function roundToNearest10(value){
+    return Math.ceil(value / 10) * 10;
+}
+
+function calculate(){
+
+    const bucketSize =
+        Number(document.getElementById("bucketSize").value) || 0;
+
+    const pricePer7 =
+        Number(document.getElementById("pricePer7").value) || 0;
+
+    const packaging =
+        Number(document.getElementById("packaging").value) || 0;
+
+    const tax =
+        Number(document.getElementById("tax").value) || 0;
+
+    const profitMargin =
+        Number(document.getElementById("profitMargin").value) || 0;
+
+    const ordersPerDay =
+        Number(document.getElementById("ordersPerDay").value) || 0;
+
+    const actualPrice =
+        (bucketSize / 7) * pricePer7;
+
+    const totalCost =
+        actualPrice + packaging + tax;
+
+    let listingPrice =
+        totalCost * (1 + (profitMargin / 100));
+
+    listingPrice =
+        roundToNearest10(listingPrice);
+
+    const profit =
+        listingPrice - totalCost;
+
+    const profitPercent =
+        totalCost > 0
+            ? (profit / totalCost) * 100
+            : 0;
+
+    const perPuriCost =
+        bucketSize > 0
+            ? totalCost / bucketSize
+            : 0;
+
+    const perPuriPrice =
+        bucketSize > 0
+            ? listingPrice / bucketSize
+            : 0;
+
+    const profitPerDay =
+        profit * ordersPerDay;
+
+    const profitPerMonth =
+        profitPerDay * 30;
+
+    const revenuePerDay =
+        listingPrice * ordersPerDay;
+
+    const revenuePerMonth =
+        revenuePerDay * 30;
+
+    document.getElementById("actualPrice").innerHTML =
+        money(actualPrice);
+
+    document.getElementById("totalCost").innerHTML =
+        money(totalCost);
+
+    document.getElementById("listingPrice").innerHTML =
+        money(listingPrice);
+
+    const profitCell =
+        document.getElementById("profit");
+
+    profitCell.innerHTML =
+        money(profit);
+
+    profitCell.className =
+        profit >= 0
+            ? "positive"
+            : "negative";
+
+    document.getElementById("profitPercent").innerHTML =
+        profitPercent.toFixed(2) + "%";
+
+    document.getElementById("perPuriCost").innerHTML =
+        money(perPuriCost);
+
+    document.getElementById("perPuriPrice").innerHTML =
+        money(perPuriPrice);
+
+    document.getElementById("profitPerDay").innerHTML =
+        money(profitPerDay);
+
+    document.getElementById("profitPerMonth").innerHTML =
+        money(profitPerMonth);
+
+    document.getElementById("revenuePerDay").innerHTML =
+        money(revenuePerDay);
+
+    document.getElementById("revenuePerMonth").innerHTML =
+        money(revenuePerMonth);
+
+    document.getElementById("cardListingPrice").innerHTML =
+        money(listingPrice);
+
+    document.getElementById("cardProfit").innerHTML =
+        money(profit);
+
+    document.getElementById("cardProfitMonth").innerHTML =
+        money(profitPerMonth);
+}
+
+document.querySelectorAll("input").forEach(input => {
+    input.addEventListener("input", calculate);
+});
+
+calculate();
+
+</script>
+
+</body>
+</html>
