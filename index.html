@@ -1,33 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>PANIPURIZ - Coming Soon</title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PANIPURIZ - Coming Soon</title>
+
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
             background: #f8fff8;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             text-align: center;
-            margin: 0;
+            padding: 20px;
         }
-        h1 {
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .logo {
+            width: 100%;
+            max-width: 900px;
+            height: auto;
+            margin-bottom: 30px;
+        }
+
+        .subtitle {
+            color: #444;
+            font-size: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .coming-soon {
+            display: block;
+            margin-top: 10px;
+            font-size: 2rem;
+            font-weight: bold;
             color: #1b8f3b;
-            font-size: 4rem;
         }
-        p {
-            color: #555;
-            font-size: 1.3rem;
+
+        @media (max-width: 768px) {
+            .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .coming-soon {
+                font-size: 1.6rem;
+            }
+
+            .logo {
+                max-width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <div>
-        <h1>PANIPURIZ</h1>
-        <p>We're cooking something exciting.<br>Coming Soon!</p>
+
+    <div class="container">
+
+        <img src="logo.png"
+             alt="PANIPURIZ Logo"
+             class="logo">
+
+        <p class="subtitle">
+            We're cooking something exciting.
+            <span class="coming-soon">Coming Soon!</span>
+        </p>
+
     </div>
+
 </body>
 </html>
